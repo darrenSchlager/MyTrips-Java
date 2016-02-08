@@ -11,16 +11,23 @@ import java.sql.*;
  *
  * @author Darren
  */
-public class LoginSvcStatementImpl implements ILoginSvc{
-    private final String CONN_STRING = "jdpc:mysql://localhost/MyTrips?username=root&password=";
+public class LoginSvcStatementImpl implements ILoginSvc {
+    
+    private final String CONN_STRING = "jdbc:mysql://localhost/MyTrips?user=root&password=";
+    
     private Connection getConnection() throws Exception {
         return DriverManager.getConnection(CONN_STRING);
     }
     
     public Login create(Login login) throws Exception {
-        Connection connection = getConnection();
-        
-        connection.close();
+        try {
+            Connection connection = getConnection();
+            connection.close();
+        } catch(Exception e) {
+            System.out.println("EXCEPTION: " + e.getMessage());
+            throw e;
+        }
+
         return login;
     }
     

@@ -19,38 +19,12 @@ import static org.junit.Assert.*;
  */
 public class LoginSvcStatementImplTest {
     
-    public LoginSvcStatementImplTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
-    /**
-     * Test of create method, of class LoginSvcStatementImpl.
-     */
     @Test
     public void testCreate() throws Exception {
-        System.out.println("create");
-        Login login = null;
-        LoginSvcStatementImpl instance = new LoginSvcStatementImpl();
-        Login expResult = null;
-        Login result = instance.create(login);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        LoginSvcStatementImpl impl = new LoginSvcStatementImpl();
+        Login login = new Login("ds", "pwrd");
+        impl.create(login);
+        assertNotNull(login);
     }
     
 }
