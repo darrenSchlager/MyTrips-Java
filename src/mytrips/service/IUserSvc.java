@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 package mytrips.service;
-import mytrips.domain.Login;
+import mytrips.domain.User;
 
 /**
  *
  * @author Darren
  */
-public interface ILoginSvc {
-    public Login create(Login login) throws Exception;
+public interface IUserSvc {
+    public User create(User user) throws Exception;
 }

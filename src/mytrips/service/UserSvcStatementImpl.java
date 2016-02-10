@@ -4,14 +4,13 @@
  * and open the template in the editor.
  */
 package mytrips.service;
-import mytrips.domain.Login;
-import java.sql.*; //JDBC API (interface); the implementation is in the driver (Project Properties -> Libraries -> Add Library -> MySql JDBC Driver)
-
+import mytrips.domain.User;
+import java.sql.*;
 /**
  *
  * @author Darren
  */
-public class LoginSvcStatementImpl implements ILoginSvc {
+public class UserSvcStatementImpl implements IUserSvc{
     
     private final String CONN_STRING = "jdbc:mysql://localhost/MyTrips?user=root&password=";
     
@@ -20,11 +19,11 @@ public class LoginSvcStatementImpl implements ILoginSvc {
     }
     
     @Override
-    public Login create(Login login) throws Exception {
+    public User create(User user) throws Exception {
         try {
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
-            String sql = "INSERT INTO login (username, password) VALUES ('"+login.getUsername()+"', '"+login.getPassword()+"');";
+            String sql = "INSERT INTO user (first_name, last_name) VALUES ('"+user.getFirstName()+"', '"+user.getLastName()+"');";
             statement.executeUpdate(sql);
             statement.close();
             connection.close();
@@ -33,7 +32,6 @@ public class LoginSvcStatementImpl implements ILoginSvc {
             throw e;
         }
 
-        return login;
+        return user;
     }
-    
 }
