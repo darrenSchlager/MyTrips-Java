@@ -10,10 +10,18 @@ package mytrips.domain;
  * @author Darren
  */
 public class Login {
+    private int userId;
     private String username;
     private String password;
     
-    public Login(String username, String password) {
+    public Login(int userId, String username, String password) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+    }
+    
+        public Login(String username, String password) {
+        this.userId = -1;
         this.username = username;
         this.password = password;
     }
@@ -45,6 +53,18 @@ public class Login {
     public void setPassword(String password) {
         this.password = password;
     }
-    
 
+    /**
+     * @return the id
+     */
+    public int getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 }

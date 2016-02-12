@@ -24,8 +24,17 @@ public class LoginSvcStatementImpl implements ILoginSvc {
         try {
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
-            String sql = "INSERT INTO login (username, password) VALUES ('"+login.getUsername()+"', '"+login.getPassword()+"');";
+            String sql = "INSERT INTO login (user_id, username, password) VALUES ('"+login.getUserId()+"', '"+login.getUsername()+"', '"+login.getPassword()+"');";
             statement.executeUpdate(sql);
+            
+            /* get the user_id that was just created 
+            sql = "SELECT last_insert_id() as user_id;";
+            ResultSet rs = statement.executeQuery(sql);
+            if(rs.first()) {
+                login.setUserId(rs.getInt("user_id"));
+            }
+            */
+            
             statement.close();
             connection.close();
         } catch(Exception e) {
@@ -33,6 +42,26 @@ public class LoginSvcStatementImpl implements ILoginSvc {
             throw e;
         }
 
+        return login;
+    }
+    
+    @Override
+    public Login retrieve(Login login) throws Exception {
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM login WHERE username='"+login.getUsername()+"' AND password='"+login.getPassword()+"';";
+            ResultSet rs = statement.executeQuery(sql);
+            if(rs.first()) {
+                login = new Login(rs.getInt("user_id"), rs.getString("username"), rs.getString("password"));
+            }
+            statement.close();
+            connection.close();
+        } catch(Exception e) {
+            System.out.println("EXCEPTION: " + e.getMessage());
+            throw e;
+        }
+        
         return login;
     }
     

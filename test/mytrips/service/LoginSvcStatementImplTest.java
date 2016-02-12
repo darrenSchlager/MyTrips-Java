@@ -20,11 +20,31 @@ import static org.junit.Assert.*;
 public class LoginSvcStatementImplTest {
     
     @Test
-    public void testCreate() throws Exception {
+    public void testCRUD() throws Exception {
+        
         LoginSvcStatementImpl impl = new LoginSvcStatementImpl();
-        Login login = new Login("ds", "pwrd");
+        
+        /* test create */
+        Login login = new Login(3, "jdoe", "pwrd");
         impl.create(login);
         assertNotNull(login);
+        System.out.println("user_id: "+login.getUserId()+"\nusername: "+login.getUsername()+"\npassword: "+login.getPassword()+"\n");
+        /**/
+        
+        /* test retrieve */
+        login = new Login("jdoe", "pwrd");
+        login = impl.retrieve(login);
+        assertNotNull(login);
+        System.out.println("user_id: "+login.getUserId()+"\nusername: "+login.getUsername()+"\npassword: "+login.getPassword()+"\n");
+        /**/
+        
+        /* test update */
+        
+        /**/
+        
+        /* test delete */
+        
+        /**/
     }
     
 }
