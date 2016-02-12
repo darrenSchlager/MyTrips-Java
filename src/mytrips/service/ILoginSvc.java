@@ -12,5 +12,7 @@ import mytrips.domain.Login;
  */
 public interface ILoginSvc {
     public Login create(Login login) throws Exception;
-        public Login retrieve(Login login) throws Exception;
+    public Login retrieve(Login login) throws Exception;
+    public Login update(Login login) throws Exception;
+    public Login delete(Login login) throws Exception;
 }
