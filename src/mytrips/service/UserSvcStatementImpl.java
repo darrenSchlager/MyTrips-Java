@@ -25,6 +25,15 @@ public class UserSvcStatementImpl implements IUserSvc{
             Statement statement = connection.createStatement();
             String sql = "INSERT INTO user (first_name, last_name) VALUES ('"+user.getFirstName()+"', '"+user.getLastName()+"');";
             statement.executeUpdate(sql);
+            
+            /* get the user_id that was just created */
+            sql = "SELECT last_insert_id() as user_id;";
+            ResultSet rs = statement.executeQuery(sql);
+            if(rs.first()) {
+                user.setUserId(rs.getInt("user_id"));
+            }
+            /**/
+            
             statement.close();
             connection.close();
         } catch(Exception e) {

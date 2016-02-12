@@ -10,8 +10,16 @@ package mytrips.domain;
  * @author Darren
  */
 public class User {
+    private int userId;
     private String firstName;
     private String lastName;
+    
+    public User(int userId, String firstName, String lastName)
+    {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
     
     public User(String firstName, String lastName)
     {
@@ -45,6 +53,20 @@ public class User {
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    /**
+     * @return the userId
+     */
+    public int getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param userId the userId to set
+     */
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
     
 }

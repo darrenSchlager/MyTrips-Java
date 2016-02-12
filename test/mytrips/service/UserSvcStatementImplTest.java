@@ -19,12 +19,26 @@ import static org.junit.Assert.*;
  */
 public class UserSvcStatementImplTest {
     
-        @Test
-    public void testCreate() throws Exception {
+    @Test
+    public void testCRUD() throws Exception {
+        
         UserSvcStatementImpl impl = new UserSvcStatementImpl();
+        
+        /* test create */
         User user = new User("John", "Doe");
         impl.create(user);
         assertNotNull(user);
+        System.out.println("user_id: "+user.getUserId()+"\nfirst_name: "+user.getFirstName()+"\nlast_name: "+user.getLastName()+"\n");
+        /**/
+        
+        /* test retrieve */
+        /**/
+        
+        /* test update */
+        /**/
+        
+        /* test delete */
+        /**/
     }
     
 }
