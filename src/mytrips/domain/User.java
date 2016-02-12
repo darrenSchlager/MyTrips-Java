@@ -23,8 +23,16 @@ public class User {
     
     public User(String firstName, String lastName)
     {
+        this.userId = -1;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+    
+    public User(int userId)
+    {
+        this.userId = userId;
+        this.firstName = "";
+        this.lastName = "";
     }
 
     /**

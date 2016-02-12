@@ -43,4 +43,61 @@ public class UserSvcStatementImpl implements IUserSvc{
 
         return user;
     }
+    
+    @Override
+    public User retrieve(User user) throws Exception {
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM user WHERE user_id='"+user.getUserId()+"';";
+            ResultSet rs = statement.executeQuery(sql);
+            if(rs.first()) {
+                user = new User(rs.getInt("user_id"), rs.getString("first_name"), rs.getString("last_name"));
+            }
+            else {
+                user = null;
+            }
+            statement.close();
+            connection.close();
+        } catch(Exception e) {
+            System.out.println("EXCEPTION: " + e.getMessage());
+            throw e;
+        }
+        
+        return user;
+    }
+    
+    @Override
+    public User update(User user) throws Exception {
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            String sql = "UPDATE user SET first_name='"+user.getFirstName()+"', last_name='"+user.getLastName()+"' WHERE user_id="+user.getUserId()+";";
+            statement.executeUpdate(sql);
+            statement.close();
+            connection.close();
+        } catch(Exception e) {
+            System.out.println("EXCEPTION: " + e.getMessage());
+            throw e;
+        }
+
+        return user;
+    }
+    
+    @Override
+    public User delete(User user) throws Exception {
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            String sql = "DELETE FROM user WHERE user_id="+user.getUserId()+";";
+            statement.executeUpdate(sql);
+            statement.close();
+            connection.close();
+        } catch(Exception e) {
+            System.out.println("EXCEPTION: " + e.getMessage());
+            throw e;
+        }
+
+        return user;
+    }
 }

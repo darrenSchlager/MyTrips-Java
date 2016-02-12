@@ -23,9 +23,10 @@ public class LoginSvcStatementImplTest {
     public void testCRUD() throws Exception {
         
         LoginSvcStatementImpl impl = new LoginSvcStatementImpl();
+        final int USER_ID = 4;
         
         /* test create */
-        Login login = new Login(3, "jdoe", "pwrd");
+        Login login = new Login(USER_ID, "jdoe", "pwrd");
         impl.create(login);
         assertNotNull(login);
         System.out.println("Created\nuser_id: "+login.getUserId()+"\nusername: "+login.getUsername()+"\npassword: "+login.getPassword()+"\n");
@@ -39,7 +40,7 @@ public class LoginSvcStatementImplTest {
         /**/
         
         /* test update */
-        login = new Login(3, "jd", "1234");
+        login = new Login(USER_ID, "jd", "1234");
         login = impl.update(login);
         assertNotNull(login);
         System.out.println("Updated to\nuser_id: "+login.getUserId()+"\nusername: "+login.getUsername()+"\npassword: "+login.getPassword()+"\n");

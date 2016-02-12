@@ -12,4 +12,7 @@ import mytrips.domain.User;
  */
 public interface IUserSvc {
     public User create(User user) throws Exception;
+    public User retrieve(User user) throws Exception;
+    public User update(User user) throws Exception;
+    public User delete(User user) throws Exception;
 }
