@@ -10,13 +10,7 @@ import java.sql.*;
  *
  * @author Darren
  */
-public class UserSvcStatementImpl implements IUserSvc{
-    
-    private final String CONN_STRING = "jdbc:mysql://localhost/MyTrips?user=root&password=";
-    
-    private Connection getConnection() throws Exception {
-        return DriverManager.getConnection(CONN_STRING);
-    }
+public class UserSvcStatementImpl extends ServiceAbs implements IUserSvc {
     
     @Override
     public User create(User user) throws Exception {

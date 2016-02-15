@@ -11,13 +11,7 @@ import java.sql.*; //JDBC API (interface); the implementation is in the driver (
  *
  * @author Darren
  */
-public class LoginSvcStatementImpl implements ILoginSvc {
-    
-    private final String CONN_STRING = "jdbc:mysql://localhost/MyTrips?user=root&password=";
-    
-    private Connection getConnection() throws Exception {
-        return DriverManager.getConnection(CONN_STRING);
-    }
+public class LoginSvcStatementImpl extends ServiceAbs implements ILoginSvc {
     
     @Override
     public Login create(Login login) throws Exception {
