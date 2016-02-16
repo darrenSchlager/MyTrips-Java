@@ -55,14 +55,14 @@ public class Login {
     }
 
     /**
-     * @return the id
+     * @return the userId
      */
     public int getUserId() {
         return userId;
     }
 
     /**
-     * @param id the id to set
+     * @param userId the userId to set
      */
     public void setUserId(int userId) {
         this.userId = userId;
