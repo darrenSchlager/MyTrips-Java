@@ -5,6 +5,8 @@
  */
 package mytrips.domain;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Darren
@@ -15,6 +17,7 @@ public class Trip {
     private String startDate;
     private String endDate;
     private int userId;
+    private ArrayList<Location> locations;
     
     public Trip(int tripId, String tripName, String startDate, String endDate, int userId) {
         this.tripId = tripId;
@@ -22,6 +25,7 @@ public class Trip {
         this.startDate = startDate;
         this.endDate = endDate;
         this.userId = userId;
+        locations = new ArrayList();
     }
     
     public Trip(String tripName, String startDate, String endDate, int userId) {
@@ -30,6 +34,16 @@ public class Trip {
         this.startDate = startDate;
         this.endDate = endDate;
         this.userId = userId;
+        locations = new ArrayList();
+    }
+    
+    public Trip(int tripId, int userId) {
+        this.tripId = tripId;
+        tripName = "";
+        startDate = "";
+        endDate = "";
+        this.userId = userId;
+        locations = new ArrayList();
     }
 
     /**
@@ -100,6 +114,20 @@ public class Trip {
      */
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    /**
+     * @return the locations
+     */
+    public ArrayList<Location> getLocations() {
+        return locations;
+    }
+
+    /**
+     * @param locations the locations to set
+     */
+    public void setLocations(ArrayList<Location> locations) {
+        this.locations = locations;
     }
     
 }

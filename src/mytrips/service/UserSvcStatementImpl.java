@@ -48,6 +48,7 @@ public class UserSvcStatementImpl extends ServiceAbs implements IUserSvc {
             if(rs.first()) {
                 user = new User(rs.getInt("user_id"), rs.getString("first_name"), rs.getString("last_name"));
                 user.setLogin(new LoginSvcStatementImpl().retrieve(new Login(user.getUserId())));
+                user.setTrips(new TripSvcStatementImpl().retrieveByUserId(new Trip(-1, user.getUserId())));
             }
             else {
                 user = null;
