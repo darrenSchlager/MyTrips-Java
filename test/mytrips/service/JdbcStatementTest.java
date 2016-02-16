@@ -33,6 +33,7 @@ public class JdbcStatementTest {
         //retrieve User
         user = userImpl.retrieve(new User(user.getUserId()));
         assertNotNull(user);
+        assertNull(user.getLogin());
         System.out.print(user.getUserId()+" "+user.getFirstName()+" "+user.getLastName()+" -> ");
         
         //retrieve User that does not exist
@@ -54,6 +55,11 @@ public class JdbcStatementTest {
         //retrieve Login
         login = loginImpl.retrieve(new Login("jd", "pwrd"));
         assertNotNull(login);
+        System.out.print(login.getUserId()+" "+login.getUsername()+" "+login.getPassword()+" = ");
+        
+        //retrieve Login
+        login = loginImpl.retrieve(new Login(login.getUserId()));
+        assertNotNull(login);
         System.out.print(login.getUserId()+" "+login.getUsername()+" "+login.getPassword()+" -> ");
         
         //retrieve Login that does not exist
@@ -66,6 +72,12 @@ public class JdbcStatementTest {
         loginImpl.update(login);
         login = loginImpl.retrieve(login);
         System.out.println(login.getUserId()+" "+login.getUsername()+" "+login.getPassword());
+        
+        //retrieve User
+        user = userImpl.retrieve(new User(user.getUserId()));
+        assertNotNull(user);
+        assertNotNull(user.getLogin());
+        System.out.println(user.getUserId()+" "+user.getFirstName()+" "+user.getLastName()+" "+user.getLogin().getUsername()+" "+user.getLogin().getPassword());
         
         //delete Login
         loginImpl.delete(login);

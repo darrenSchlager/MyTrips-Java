@@ -13,19 +13,23 @@ public class Login {
     private int userId;
     private String username;
     private String password;
-    private Login login;
     
     public Login(int userId, String username, String password) {
         this.userId = userId;
         this.username = username;
         this.password = password;
-        login = null;
     }
     
     public Login(String username, String password) {
         this.userId = -1;
         this.username = username;
         this.password = password;
+    }
+    
+    public Login(int userId) {
+        this.userId = userId;
+        this.username = "";
+        this.password = "";
     }
 
     /**
@@ -69,18 +73,5 @@ public class Login {
     public void setUserId(int userId) {
         this.userId = userId;
     }
-
-    /**
-     * @return the login
-     */
-    public Login getLogin() {
-        return login;
-    }
-
-    /**
-     * @param login the login to set
-     */
-    public void setLogin(Login login) {
-        this.login = login;
-    }
+    
 }

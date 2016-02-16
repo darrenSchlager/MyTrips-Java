@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package mytrips.service;
-import mytrips.domain.User;
+import mytrips.domain.*;
 import java.sql.*;
 /**
  *
@@ -47,6 +47,7 @@ public class UserSvcStatementImpl extends ServiceAbs implements IUserSvc {
             ResultSet rs = statement.executeQuery(sql);
             if(rs.first()) {
                 user = new User(rs.getInt("user_id"), rs.getString("first_name"), rs.getString("last_name"));
+                user.setLogin(new LoginSvcStatementImpl().retrieve(new Login(user.getUserId())));
             }
             else {
                 user = null;

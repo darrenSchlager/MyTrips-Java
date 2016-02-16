@@ -15,6 +15,7 @@ public class User {
     private int userId;
     private String firstName;
     private String lastName;
+    private Login login;
     private ArrayList<Trip> trips;
     
     public User(int userId, String firstName, String lastName)
@@ -23,6 +24,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         trips = new ArrayList();
+        login = null;
     }
     
     public User(String firstName, String lastName)
@@ -31,6 +33,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         trips = new ArrayList();
+        login = null;
     }
     
     public User(int userId)
@@ -39,6 +42,7 @@ public class User {
         this.firstName = "";
         this.lastName = "";
         trips = new ArrayList();
+        login = null;
     }
 
     /**
@@ -83,6 +87,20 @@ public class User {
         this.userId = userId;
     }
 
+    /**
+     * @return the login
+     */
+    public Login getLogin() {
+        return login;
+    }
+
+    /**
+     * @param login the login to set
+     */
+    public void setLogin(Login login) {
+        this.login = login;
+    }
+    
     /**
      * @return the trips
      */

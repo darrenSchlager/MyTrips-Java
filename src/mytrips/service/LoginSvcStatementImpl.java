@@ -35,7 +35,13 @@ public class LoginSvcStatementImpl extends ServiceAbs implements ILoginSvc {
         try {
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM login WHERE username='"+login.getUsername()+"' AND password='"+login.getPassword()+"';";
+            String sql;
+            if(login.getUserId()>0) {
+                sql = "SELECT * FROM login WHERE user_id='"+login.getUserId()+"';";
+            }
+            else {
+                sql = "SELECT * FROM login WHERE username='"+login.getUsername()+"' AND password='"+login.getPassword()+"';";
+            }
             ResultSet rs = statement.executeQuery(sql);
             if(rs.first()) {
                 login = new Login(rs.getInt("user_id"), rs.getString("username"), rs.getString("password"));
