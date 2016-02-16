@@ -17,5 +17,6 @@ public interface ITripSvc {
     public Trip retrieveByTripId(Trip trip) throws Exception;
     public ArrayList<Trip> retrieveByUserId(Trip trip) throws Exception;
     public Trip update(Trip trip) throws Exception;
-    public Trip delete(Trip trip) throws Exception;
+    public Trip deleteByTripId(Trip trip) throws Exception;
+    public ArrayList<Trip> deleteByUserId(Trip trip) throws Exception;
 }

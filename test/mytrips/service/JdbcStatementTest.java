@@ -123,20 +123,22 @@ public class JdbcStatementTest {
         }
         System.out.println();
         
-        //delete Trip
-        tripImpl.delete(trip);
-        trip = tripImpl.retrieveByTripId(trip);
-        assertNull(trip);
-        
-        //delete Trip
-        tripImpl.delete(trip2);
-        trip2 = tripImpl.retrieveByTripId(trip2);
-        assertNull(trip2);
-        
-        //delete Login
-        loginImpl.delete(login);
-        login = loginImpl.retrieve(login);
-        assertNull(login);
+        /* unnecessary, userImpl.delete(user) calls these*/
+//        //delete Trip
+//        tripImpl.deleteByTripId(trip);
+//        trip = tripImpl.retrieveByTripId(trip);
+//        assertNull(trip);
+//        
+//        //delete Trip
+//        tripImpl.deleteByTripId(trip2);
+//        trip2 = tripImpl.retrieveByTripId(trip2);
+//        assertNull(trip2);
+//        
+//        //delete Login
+//        loginImpl.delete(login);
+//        login = loginImpl.retrieve(login);
+//        assertNull(login);
+        /**/
         
         //delete User
         userImpl.delete(user);

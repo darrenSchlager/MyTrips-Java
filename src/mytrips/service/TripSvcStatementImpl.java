@@ -23,7 +23,7 @@ public class TripSvcStatementImpl extends ServiceAbs implements ITripSvc {
             String sql = "INSERT INTO trip (trip_name, start_date, end_date, user_id) VALUES ('"+trip.getTripName()+"', STR_TO_DATE('"+trip.getStartDate()+"','%m-%d-%Y'), STR_TO_DATE('"+trip.getEndDate()+"','%m-%d-%Y'), "+trip.getUserId()+");";
             statement.executeUpdate(sql);
         
-            /* get the user_id that was just created */
+            /* get the trip_id that was just created */
             sql = "SELECT last_insert_id() as trip_id";
             ResultSet rs = statement.executeQuery(sql);
             if(rs.first()) {
@@ -103,7 +103,8 @@ public class TripSvcStatementImpl extends ServiceAbs implements ITripSvc {
         return trip;
     }
     
-    public Trip delete(Trip trip) throws Exception {
+    @Override
+    public Trip deleteByTripId(Trip trip) throws Exception {
         try {
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
@@ -117,5 +118,24 @@ public class TripSvcStatementImpl extends ServiceAbs implements ITripSvc {
         }
         
         return trip;
+    }
+    
+    @Override
+    public ArrayList<Trip> deleteByUserId(Trip trip) throws Exception {
+        ArrayList<Trip> trips = new ArrayList();
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            trips = retrieveByUserId(trip);
+            String sql = "DELETE FROM trip where user_id="+trip.getUserId()+";";
+            statement.executeUpdate(sql);
+            statement.close();
+            connection.close();
+        } catch(Exception e) {
+            System.out.println("EXCEPTION: "+e.getMessage());
+            throw e;
+        }
+        
+        return trips;
     }
 }
