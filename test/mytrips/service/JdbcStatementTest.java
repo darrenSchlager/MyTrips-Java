@@ -23,6 +23,7 @@ public class JdbcStatementTest {
     @Test
     public void testStatementServices() throws Exception {
         UserSvcStatementImpl userImpl = new UserSvcStatementImpl();
+        LoginSvcStatementImpl loginImpl = new LoginSvcStatementImpl();
         
         //create User
         User user = new User("John", "Doe");
@@ -35,7 +36,7 @@ public class JdbcStatementTest {
         System.out.print(user.getUserId()+" "+user.getFirstName()+" "+user.getLastName()+" -> ");
         
         //retrieve User that does not exist
-        User user2 = new User(-1);
+        User user2 = new User(0);
         user2 =userImpl.retrieve(user2);
         assertNull(user2);
         
@@ -45,7 +46,31 @@ public class JdbcStatementTest {
         user = userImpl.retrieve(user);
         System.out.println(user.getUserId()+" "+user.getFirstName()+" "+user.getLastName());
         
+        //create Login
+        Login login = new Login(user.getUserId(), "jd", "pwrd");
+        loginImpl.create(login);
+        assertNotNull(login);
         
+        //retrieve Login
+        login = loginImpl.retrieve(new Login("jd", "pwrd"));
+        assertNotNull(login);
+        System.out.print(login.getUserId()+" "+login.getUsername()+" "+login.getPassword()+" -> ");
+        
+        //retrieve Login that does not exist
+        Login login2 = new Login("", "");
+        login2 = loginImpl.retrieve(login2);
+        assertNull(login2);
+        
+        //update Login
+        login.setUsername("jdoe");
+        loginImpl.update(login);
+        login = loginImpl.retrieve(login);
+        System.out.println(login.getUserId()+" "+login.getUsername()+" "+login.getPassword());
+        
+        //delete Login
+        loginImpl.delete(login);
+        login = loginImpl.retrieve(login);
+        assertNull(login);
         
         //delete User
         userImpl.delete(user);
