@@ -85,8 +85,8 @@ public class UserSvcStatementImpl extends ServiceAbs implements IUserSvc {
         try {
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
-            new LoginSvcStatementImpl().delete(new Login(user.getUserId()));
             new TripSvcStatementImpl().deleteByUserId(new Trip(-1, user.getUserId()));
+            new LoginSvcStatementImpl().delete(new Login(user.getUserId()));
             String sql = "DELETE FROM user WHERE user_id="+user.getUserId()+";";
             statement.executeUpdate(sql);
             statement.close();

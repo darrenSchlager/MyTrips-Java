@@ -7,7 +7,7 @@ package mytrips.service;
 
 import java.sql.*;
 import java.util.ArrayList;
-import mytrips.domain.Trip;
+import mytrips.domain.*;
 
 /**
  *
@@ -50,6 +50,7 @@ public class TripSvcStatementImpl extends ServiceAbs implements ITripSvc {
             ResultSet rs = statement.executeQuery(sql);
             if(rs.first()) {
                 trip = new Trip(rs.getInt("trip_id"), rs.getString("trip_name"), rs.getString("start_date"), rs.getString("end_date"), rs.getInt("user_id"));
+                trip.setLocations(new LocationSvcStatementImpl().retrieveByTripId(new Location(-1, trip.getTripId())));
             }
             else {
                 trip = null;
@@ -74,7 +75,9 @@ public class TripSvcStatementImpl extends ServiceAbs implements ITripSvc {
             String sql = "SELECT trip_id, trip_name, date_format(start_date, '%c-%e-%Y') as start_date, date_format(end_date, '%c-%e-%Y') as end_date, user_id FROM trip WHERE user_id="+trip.getUserId()+";";
             ResultSet rs = statement.executeQuery(sql);
             while(rs.next()) {
-                trips.add(new Trip(rs.getInt("trip_id"), rs.getString("trip_name"), rs.getString("start_date"), rs.getString("end_date"), rs.getInt("user_id")));
+                Trip t = new Trip(rs.getInt("trip_id"), rs.getString("trip_name"), rs.getString("start_date"), rs.getString("end_date"), rs.getInt("user_id"));
+                t.setLocations(new LocationSvcStatementImpl().retrieveByTripId(new Location(-1, t.getTripId())));
+                trips.add(t);
             }
             statement.close();
             connection.close();
@@ -108,6 +111,7 @@ public class TripSvcStatementImpl extends ServiceAbs implements ITripSvc {
         try {
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
+            new LocationSvcStatementImpl().deleteByTripId(new Location(-1, trip.getTripId()));
             String sql = "DELETE FROM trip where trip_id="+trip.getTripId()+";";
             statement.executeUpdate(sql);
             statement.close();
@@ -127,6 +131,9 @@ public class TripSvcStatementImpl extends ServiceAbs implements ITripSvc {
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
             trips = retrieveByUserId(trip);
+            for(Trip t : trips) {
+                new LocationSvcStatementImpl().deleteByTripId(new Location(-1, t.getTripId()));
+            }
             String sql = "DELETE FROM trip where user_id="+trip.getUserId()+";";
             statement.executeUpdate(sql);
             statement.close();
