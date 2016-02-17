@@ -26,6 +26,7 @@ public class JdbcStatementTest {
         LoginSvcStatementImpl loginImpl = new LoginSvcStatementImpl();
         TripSvcStatementImpl tripImpl = new TripSvcStatementImpl();
         LocationSvcStatementImpl locationImpl = new LocationSvcStatementImpl();
+        ActivitySvcStatementImpl activityImpl = new ActivitySvcStatementImpl();
         
         //create User
         User user = new User("John", "Doe");
@@ -47,6 +48,7 @@ public class JdbcStatementTest {
         user.setFirstName("Jane");
         userImpl.update(user);
         user = userImpl.retrieve(user);
+        assertNotNull(user);
         System.out.println(user.getUserId()+" "+user.getFirstName()+" "+user.getLastName());
         
         //create Login
@@ -74,6 +76,7 @@ public class JdbcStatementTest {
         login.setPassword("1234");
         loginImpl.update(login);
         login = loginImpl.retrieve(login);
+        assertNotNull(login);
         System.out.println(login.getUserId()+" "+login.getUsername()+" "+login.getPassword());
         
         //retrieve User
@@ -110,6 +113,7 @@ public class JdbcStatementTest {
         trip2.setEndDate("8-24-2017");
         tripImpl.update(trip2);
         trip2 = tripImpl.retrieveByTripId(trip2);
+        assertNotNull(trip2);
         System.out.println(trip2.getTripId()+" "+trip2.getTripName()+" "+trip2.getStartDate()+" "+trip2.getEndDate()+" "+trip2.getUserId());
         
         //retrieve User
@@ -132,7 +136,12 @@ public class JdbcStatementTest {
         //create Location
         Location location2 = new Location("7-18-2016", "7-20-2016", trip.getTripId(), "Papeete", "French Polynesia");
         location2 = locationImpl.create(location2);
-        assertNotNull(location2);        
+        assertNotNull(location2);   
+        
+        //create Location
+        Location location3 = new Location("8-5-2017", "8-19-2017", trip2.getTripId(), "Juneau", "Alaska");
+        location3 = locationImpl.create(location3);
+        assertNotNull(location3); 
         
         //retrieve Location by trip_location_id
         location = locationImpl.retrieveByTripLocationId(new Location(location.getTripLocationId(), -1));
@@ -146,24 +155,12 @@ public class JdbcStatementTest {
         }
         
         //update Location
-        location2.setArrive("7-17-2016");
-        location2.setDepart("7-24-2016");
-        locationImpl.update(location2);
-        location2 = locationImpl.retrieveByTripLocationId(new Location(location2.getTripLocationId(), -1));
-        assertNotNull(location2);
+        location3.setArrive("8-10-2017");
+        location3.setDepart("8-10-2017");
+        locationImpl.update(location3);
+        location3 = locationImpl.retrieveByTripLocationId(new Location(location3.getTripLocationId(), -1));
+        assertNotNull(location3);
         System.out.println(location2.getTripLocationId()+" "+location2.getArrive()+" "+location2.getDepart()+" "+location2.getTripId()+" "+location2.getLocationId()+" "+location2.getCity()+" "+location2.getStateCountry());
-        
-        //create Location
-        Location location3 = new Location("7-10-2016", "7-17-2016", trip2.getTripId(), "Juneau", "Alaska");
-        location3 = locationImpl.create(location3);
-        assertNotNull(location3); 
-        
-        //retrieve Location by trip_id
-        locations = locationImpl.retrieveByTripId(new Location(-1, trip2.getTripId()));
-        assertFalse(locations.isEmpty());
-        for(Location l : locations) {
-            System.out.println(l.getTripLocationId()+" "+l.getArrive()+" "+l.getDepart()+" "+l.getTripId()+" "+l.getLocationId()+" "+l.getCity()+" "+l.getStateCountry());
-        }
         
         //retrieve User
         user = userImpl.retrieve(new User(user.getUserId()));
@@ -181,7 +178,106 @@ public class JdbcStatementTest {
         }
         System.out.println();
         
+        //create Activity
+        Activity activity = new Activity("Volcano Hike", "7-12-2016", "10:10 AM", "Hike the Haleakala crater", location.getTripLocationId());
+        activity = activityImpl.create(activity);
+        assertNotNull(activity);
+        
+        //create Activity
+        Activity activity2 = new Activity("Jeep Rental", "7-14-2016", "2:35 PM", "On Lanai", location.getTripLocationId());
+        activity2 = activityImpl.create(activity2);
+        assertNotNull(activity2);
+        
+        //create Activity
+        Activity activity3 = new Activity("Helicopter Tour", "7-20-2016", "11:00 AM", "Heli tour of Bora Bora", location2.getTripLocationId());
+        activity3 = activityImpl.create(activity3);
+        assertNotNull(activity3);
+        
+        //create Activity
+        Activity activity4 = new Activity("Tour", "8-12-2017", "12:30 PM", "Alaska tour", location3.getTripLocationId());
+        activity4 = activityImpl.create(activity4);
+        assertNotNull(activity4);
+        
+        //retrieve Activity by activity_id
+        activity = activityImpl.retrieveByActivityId(new Activity(activity.getActivityId(), -1));
+        assertNotNull(activity);
+        
+        //retrieve Activity by trip_location
+        ArrayList<Activity> activities = activityImpl.retrieveByTripLocationId(new Activity(-1, location.getTripLocationId()));
+        assertFalse(activities.isEmpty());
+        for(Activity a : activities) {
+            System.out.println(a.getActivityId()+" "+a.getActivityName()+" "+a.getDate()+" "+a.getTime()+" "+a.getDescription()+" "+a.getTripLocationId());
+        }
+        
+        //retrieve Activity by trip_location
+        activities = activityImpl.retrieveByTripLocationId(new Activity(-1, location2.getTripLocationId()));
+        assertFalse(activities.isEmpty());
+        for(Activity a : activities) {
+            System.out.println(a.getActivityId()+" "+a.getActivityName()+" "+a.getDate()+" "+a.getTime()+" "+a.getDescription()+" "+a.getTripLocationId());
+        }  
+        
+        //retrieve Activity by trip_location
+        activities = activityImpl.retrieveByTripLocationId(new Activity(-1, location3.getTripLocationId()));
+        assertFalse(activities.isEmpty());
+        for(Activity a : activities) {
+            System.out.println(a.getActivityId()+" "+a.getActivityName()+" "+a.getDate()+" "+a.getTime()+" "+a.getDescription()+" "+a.getTripLocationId());
+        } 
+        
+        //update Activity
+        activity4.setActivityName("Boat Tour");
+        activity4.setDate("8-14-2017");
+        activity4.setTime("12:15 PM");
+        activity4.setDescription("Alaska Coast Tour");
+        activityImpl.update(activity4);
+        activity4 = activityImpl.retrieveByActivityId(new Activity(activity4.getActivityId(), -1));
+        assertNotNull(activity4);
+        System.out.println(activity4.getActivityId()+" "+activity4.getActivityName()+" "+activity4.getDate()+" "+activity4.getTime()+" "+activity4.getDescription()+" "+activity4.getTripLocationId());
+        
+        //retrieve User
+        user = userImpl.retrieve(new User(user.getUserId()));
+        assertNotNull(user);
+        assertNotNull(user.getLogin());
+        assertFalse(user.getTrips().isEmpty());
+        System.out.println("\n:: "+user.getUserId()+" "+user.getFirstName()+" "+user.getLastName());
+        System.out.println(":::: "+user.getLogin().getUserId()+" "+user.getLogin().getUsername()+" "+user.getLogin().getPassword());
+        for(Trip t : user.getTrips()) {
+            System.out.println(":::: "+t.getTripId()+" "+t.getTripName()+" "+t.getStartDate()+" "+t.getEndDate()+" "+t.getUserId());
+            assertFalse(t.getLocations().isEmpty());
+            for(Location l : t.getLocations()) {
+                System.out.println(":::::: "+l.getTripLocationId()+" "+l.getArrive()+" "+l.getDepart()+" "+l.getTripId()+" "+l.getLocationId()+" "+l.getCity()+" "+l.getStateCountry());
+                assertFalse(l.getActivities().isEmpty());
+                for(Activity a : l.getActivities()) {
+                    System.out.println(":::::::: "+a.getActivityId()+" "+a.getActivityName()+" "+a.getDate()+" "+a.getTime()+" "+a.getDescription()+" "+a.getTripLocationId());
+                }
+            }
+        }
+        
+        //delete User
+        userImpl.delete(user);
+        user = userImpl.retrieve(user);
+        assertNull(user);
+        
         /* unnecessary, userImpl.delete(user) calls these*/
+//        //delete Activity
+//        activityImpl.deleteByActivityId(activity);
+//        activity = activityImpl.retrieveByActivityId(activity);
+//        assertNull(activity);
+//        
+//        //delete Activity
+//        activityImpl.deleteByActivityId(activity2);
+//        activity2 = activityImpl.retrieveByActivityId(activity2);
+//        assertNull(activity2);
+//        
+//        //delete Activity
+//        activityImpl.deleteByActivityId(activity3);
+//        activity3 = activityImpl.retrieveByActivityId(activity3);
+//        assertNull(activity3);
+//        
+//        //delete Activity
+//        activityImpl.deleteByActivityId(activity4);
+//        activity4 = activityImpl.retrieveByActivityId(activity4);
+//        assertNull(activity4);
+//        
 //        //delete Location
 //        locationImpl.deleteByTripLocationId(location);
 //        location = locationImpl.retrieveByTripLocationId(location);
@@ -212,11 +308,6 @@ public class JdbcStatementTest {
 //        login = loginImpl.retrieve(login);
 //        assertNull(login);
         /**/
-        
-        //delete User
-        userImpl.delete(user);
-        user = userImpl.retrieve(user);
-        assertNull(user);
         
     }
     

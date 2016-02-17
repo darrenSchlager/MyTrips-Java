@@ -80,9 +80,7 @@ public class LocationSvcStatementImpl extends ServiceAbs implements ILocationSvc
                 if(rs2.first()) {
                     location.setCity(rs2.getString("city"));
                     location.setStateCountry(rs2.getString("state_country"));
-                }
-                else {
-                    location = null;
+                    location.setActivities(new ActivitySvcStatementImpl().retrieveByTripLocationId(new Activity(-1, location.getTripLocationId())));
                 }
                 /**/
             }
@@ -121,6 +119,7 @@ public class LocationSvcStatementImpl extends ServiceAbs implements ILocationSvc
                 if(rs.first()) {
                     l.setCity(rs.getString("city"));
                     l.setStateCountry(rs.getString("state_country"));
+                    l.setActivities(new ActivitySvcStatementImpl().retrieveByTripLocationId(new Activity(-1, l.getTripLocationId())));
                 }
                 /**/
             }
@@ -159,6 +158,8 @@ public class LocationSvcStatementImpl extends ServiceAbs implements ILocationSvc
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
             
+            new ActivitySvcStatementImpl().deleteByTripLocationId(new Activity(-1, location.getTripLocationId()));
+            
             /* delete from the mapping table */
             String sql = "DELETE FROM trip_location WHERE trip_location_id="+location.getTripLocationId()+";";
             statement.executeUpdate(sql);
@@ -191,6 +192,9 @@ public class LocationSvcStatementImpl extends ServiceAbs implements ILocationSvc
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
             locations = retrieveByTripId(location);
+            for(Location l : locations) {
+                new ActivitySvcStatementImpl().deleteByTripLocationId(new Activity(-1, l.getTripLocationId()));
+            }
             
             /* delete from the mapping table */
             String sql = "DELETE FROM trip_location WHERE trip_id="+location.getTripId()+";";
