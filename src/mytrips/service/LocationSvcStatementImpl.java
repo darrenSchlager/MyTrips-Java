@@ -140,8 +140,37 @@ public class LocationSvcStatementImpl extends ServiceAbs implements ILocationSvc
         try {
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
-            String sql = "UPDATE trip_location SET arrive=STR_TO_DATE('"+location.getArrive()+"','%m-%d-%Y'), depart=STR_TO_DATE('"+location.getDepart()+"','%m-%d-%Y') WHERE trip_location_id ="+location.getTripLocationId()+";";
+            int oldLocationId = location.getLocationId();
+            
+            /* insert into the location table if it isnt there already */
+            String sql = "SELECT location_id FROM location WHERE city='"+location.getCity()+"' and state_country='"+location.getStateCountry()+"';";
+            ResultSet rs = statement.executeQuery(sql);
+            if(rs.first()) {
+                location.setLocationId(rs.getInt("location_id"));
+            }
+            else {
+                sql = "INSERT INTO location (city, state_country) VALUES ('"+location.getCity()+"', '"+location.getStateCountry()+"');";
+                statement.executeUpdate(sql);
+                sql = "SELECT last_insert_id() as location_id";
+                ResultSet rs2 = statement.executeQuery(sql);
+                if(rs2.first()) {
+                    location.setLocationId(rs2.getInt("location_id"));
+                }
+            }
+            
+            sql = "UPDATE trip_location SET arrive=STR_TO_DATE('"+location.getArrive()+"','%m-%d-%Y'), depart=STR_TO_DATE('"+location.getDepart()+"','%m-%d-%Y'), location_id="+location.getLocationId()+" WHERE trip_location_id ="+location.getTripLocationId()+";";
             statement.executeUpdate(sql);
+            
+            /* delete the location from the location table if location_id is not referenced in the mapping table */
+            sql = "SELECT * FROM trip_location WHERE location_id="+oldLocationId+";";
+            rs = statement.executeQuery(sql);
+            if(rs.first()) {}
+            else {
+                sql = "DELETE FROM location WHERE location_id="+oldLocationId+";";
+                statement.executeUpdate(sql);
+            }
+            /**/
+            
             statement.close();
             connection.close();
         } catch(Exception e) {

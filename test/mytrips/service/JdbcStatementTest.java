@@ -139,7 +139,7 @@ public class JdbcStatementTest {
         assertNotNull(location2);   
         
         //create Location
-        Location location3 = new Location("8-5-2017", "8-19-2017", trip2.getTripId(), "Juneau", "Alaska");
+        Location location3 = new Location("8-5-2017", "8-19-2017", trip2.getTripId(), "Junea", "Alask");
         location3 = locationImpl.create(location3);
         assertNotNull(location3); 
         
@@ -154,13 +154,22 @@ public class JdbcStatementTest {
             System.out.println(l.getTripLocationId()+" "+l.getArrive()+" "+l.getDepart()+" "+l.getTripId()+" "+l.getLocationId()+" "+l.getCity()+" "+l.getStateCountry());
         }
         
+        //retrieve Location by trip_id
+        locations = locationImpl.retrieveByTripId(new Location(-1, trip2.getTripId()));
+        assertFalse(locations.isEmpty());
+        for(Location l : locations) {
+            System.out.println(l.getTripLocationId()+" "+l.getArrive()+" "+l.getDepart()+" "+l.getTripId()+" "+l.getLocationId()+" "+l.getCity()+" "+l.getStateCountry());
+        }
+        
         //update Location
         location3.setArrive("8-10-2017");
-        location3.setDepart("8-10-2017");
+        location3.setDepart("8-24-2017");
+        location3.setCity("Juneau");
+        location3.setStateCountry("Alaska");
         locationImpl.update(location3);
         location3 = locationImpl.retrieveByTripLocationId(new Location(location3.getTripLocationId(), -1));
         assertNotNull(location3);
-        System.out.println(location2.getTripLocationId()+" "+location2.getArrive()+" "+location2.getDepart()+" "+location2.getTripId()+" "+location2.getLocationId()+" "+location2.getCity()+" "+location2.getStateCountry());
+        System.out.println(location3.getTripLocationId()+" "+location3.getArrive()+" "+location3.getDepart()+" "+location3.getTripId()+" "+location3.getLocationId()+" "+location3.getCity()+" "+location3.getStateCountry());
         
         //retrieve User
         user = userImpl.retrieve(new User(user.getUserId()));
