@@ -37,7 +37,7 @@ public class JdbcStatementTest {
         user = userImpl.retrieve(new User(user.getUserId()));
         assertNotNull(user);
         assertNull(user.getLogin());
-        System.out.print(user.getUserId()+" "+user.getFirstName()+" "+user.getLastName()+" -> ");
+        System.out.println(user.getUserId()+" "+user.getFirstName()+" "+user.getLastName());
         
         //retrieve User that does not exist
         User user2 = new User(0);
@@ -49,7 +49,7 @@ public class JdbcStatementTest {
         userImpl.update(user);
         user = userImpl.retrieve(user);
         assertNotNull(user);
-        System.out.println(user.getUserId()+" "+user.getFirstName()+" "+user.getLastName());
+        System.out.println(user.getUserId()+" "+user.getFirstName()+" "+user.getLastName()+"\n");
         
         //create Login
         Login login = new Login(user.getUserId(), "jd", "pwrd");
@@ -59,12 +59,11 @@ public class JdbcStatementTest {
         //retrieve Login
         login = loginImpl.retrieve(new Login("jd", "pwrd"));
         assertNotNull(login);
-        System.out.print(login.getUserId()+" "+login.getUsername()+" "+login.getPassword()+" = ");
         
         //retrieve Login
         login = loginImpl.retrieve(new Login(login.getUserId()));
         assertNotNull(login);
-        System.out.print(login.getUserId()+" "+login.getUsername()+" "+login.getPassword()+" -> ");
+        System.out.println(login.getUserId()+" "+login.getUsername()+" "+login.getPassword());
         
         //retrieve Login that does not exist
         Login login2 = new Login("", "");
@@ -83,8 +82,8 @@ public class JdbcStatementTest {
         user = userImpl.retrieve(new User(user.getUserId()));
         assertNotNull(user);
         assertNotNull(user.getLogin());
-        System.out.println("\n:: "+user.getUserId()+" "+user.getFirstName()+" "+user.getLastName());
-        System.out.println(":::: "+user.getLogin().getUserId()+" "+user.getLogin().getUsername()+" "+user.getLogin().getPassword()+"\n");
+        System.out.println("\n[     User :: "+user.getUserId()+" "+user.getFirstName()+" "+user.getLastName());
+        System.out.println("[    Login :::: "+user.getLogin().getUserId()+" "+user.getLogin().getUsername()+" "+user.getLogin().getPassword()+"\n");
         
         //create Trip
         Trip trip = new Trip("Pacific Islands", "7-10-2016", "7-24-2016", user.getUserId());
@@ -121,10 +120,10 @@ public class JdbcStatementTest {
         assertNotNull(user);
         assertNotNull(user.getLogin());
         assertFalse(user.getTrips().isEmpty());
-        System.out.println("\n:: "+user.getUserId()+" "+user.getFirstName()+" "+user.getLastName());
-        System.out.println(":::: "+user.getLogin().getUserId()+" "+user.getLogin().getUsername()+" "+user.getLogin().getPassword());
+        System.out.println("\n[     User :: "+user.getUserId()+" "+user.getFirstName()+" "+user.getLastName());
+        System.out.println("[    Login :::: "+user.getLogin().getUserId()+" "+user.getLogin().getUsername()+" "+user.getLogin().getPassword());
         for(Trip t : user.getTrips()) {
-            System.out.println(":::: "+t.getTripId()+" "+t.getTripName()+" "+t.getStartDate()+" "+t.getEndDate()+" "+t.getUserId());
+            System.out.println("[     Trip :::: "+t.getTripId()+" "+t.getTripName()+" "+t.getStartDate()+" "+t.getEndDate()+" "+t.getUserId());
         }
         System.out.println();
         
@@ -176,13 +175,13 @@ public class JdbcStatementTest {
         assertNotNull(user);
         assertNotNull(user.getLogin());
         assertFalse(user.getTrips().isEmpty());
-        System.out.println("\n:: "+user.getUserId()+" "+user.getFirstName()+" "+user.getLastName());
-        System.out.println(":::: "+user.getLogin().getUserId()+" "+user.getLogin().getUsername()+" "+user.getLogin().getPassword());
+        System.out.println("\n[     User :: "+user.getUserId()+" "+user.getFirstName()+" "+user.getLastName());
+        System.out.println("[    Login :::: "+user.getLogin().getUserId()+" "+user.getLogin().getUsername()+" "+user.getLogin().getPassword());
         for(Trip t : user.getTrips()) {
-            System.out.println(":::: "+t.getTripId()+" "+t.getTripName()+" "+t.getStartDate()+" "+t.getEndDate()+" "+t.getUserId());
+            System.out.println("[     Trip :::: "+t.getTripId()+" "+t.getTripName()+" "+t.getStartDate()+" "+t.getEndDate()+" "+t.getUserId());
             assertFalse(t.getLocations().isEmpty());
             for(Location l : t.getLocations()) {
-                System.out.println(":::::: "+l.getTripLocationId()+" "+l.getArrive()+" "+l.getDepart()+" "+l.getTripId()+" "+l.getLocationId()+" "+l.getCity()+" "+l.getStateCountry());
+                System.out.println("[ Location :::::: "+l.getTripLocationId()+" "+l.getArrive()+" "+l.getDepart()+" "+l.getTripId()+" "+l.getLocationId()+" "+l.getCity()+" "+l.getStateCountry());
             }
         }
         System.out.println();
@@ -247,16 +246,16 @@ public class JdbcStatementTest {
         assertNotNull(user);
         assertNotNull(user.getLogin());
         assertFalse(user.getTrips().isEmpty());
-        System.out.println("\n:: "+user.getUserId()+" "+user.getFirstName()+" "+user.getLastName());
-        System.out.println(":::: "+user.getLogin().getUserId()+" "+user.getLogin().getUsername()+" "+user.getLogin().getPassword());
+        System.out.println("\n[     User :: "+user.getUserId()+" "+user.getFirstName()+" "+user.getLastName());
+        System.out.println("[    Login :::: "+user.getLogin().getUserId()+" "+user.getLogin().getUsername()+" "+user.getLogin().getPassword());
         for(Trip t : user.getTrips()) {
-            System.out.println(":::: "+t.getTripId()+" "+t.getTripName()+" "+t.getStartDate()+" "+t.getEndDate()+" "+t.getUserId());
+            System.out.println("[     Trip :::: "+t.getTripId()+" "+t.getTripName()+" "+t.getStartDate()+" "+t.getEndDate()+" "+t.getUserId());
             assertFalse(t.getLocations().isEmpty());
             for(Location l : t.getLocations()) {
-                System.out.println(":::::: "+l.getTripLocationId()+" "+l.getArrive()+" "+l.getDepart()+" "+l.getTripId()+" "+l.getLocationId()+" "+l.getCity()+" "+l.getStateCountry());
+                System.out.println("[ Location :::::: "+l.getTripLocationId()+" "+l.getArrive()+" "+l.getDepart()+" "+l.getTripId()+" "+l.getLocationId()+" "+l.getCity()+" "+l.getStateCountry());
                 assertFalse(l.getActivities().isEmpty());
                 for(Activity a : l.getActivities()) {
-                    System.out.println(":::::::: "+a.getActivityId()+" "+a.getActivityName()+" "+a.getDate()+" "+a.getTime()+" "+a.getDescription()+" "+a.getTripLocationId());
+                    System.out.println("[ Activity :::::::: "+a.getActivityId()+" "+a.getActivityName()+" "+a.getDate()+" "+a.getTime()+" "+a.getDescription()+" "+a.getTripLocationId());
                 }
             }
         }
