@@ -10,7 +10,7 @@ import mytrips.domain.Login;
  *
  * @author Darren
  */
-public interface ILoginSvc {
+public interface ILoginSvc extends IService {
     public Login create(Login login) throws Exception;
     public Login retrieve(Login login) throws Exception;
     public Login update(Login login) throws Exception;

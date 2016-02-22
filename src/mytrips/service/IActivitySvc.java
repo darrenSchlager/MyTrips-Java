@@ -12,7 +12,7 @@ import mytrips.domain.Activity;
  *
  * @author Darren
  */
-public interface IActivitySvc {
+public interface IActivitySvc extends IService {
     public Activity create(Activity activity) throws Exception;
     public Activity retrieveByActivityId(Activity activity) throws Exception;
     public ArrayList<Activity> retrieveByTripLocationId(Activity activity) throws Exception;

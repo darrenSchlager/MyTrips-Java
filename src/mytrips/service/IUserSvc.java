@@ -10,7 +10,7 @@ import mytrips.domain.User;
  *
  * @author Darren
  */
-public interface IUserSvc {
+public interface IUserSvc extends IService {
     public User create(User user) throws Exception;
     public User retrieve(User user) throws Exception;
     public User update(User user) throws Exception;

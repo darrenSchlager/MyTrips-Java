@@ -12,7 +12,7 @@ import mytrips.domain.Location;
  *
  * @author Darren
  */
-public interface ILocationSvc {
+public interface ILocationSvc extends IService {
     public Location create(Location location) throws Exception; 
     public Location retrieveByTripLocationId(Location location) throws Exception;
     public ArrayList<Location> retrieveByTripId(Location location) throws Exception;
