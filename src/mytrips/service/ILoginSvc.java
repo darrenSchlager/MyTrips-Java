@@ -11,6 +11,8 @@ import mytrips.domain.Login;
  * @author Darren
  */
 public interface ILoginSvc extends IService {
+    public final String NAME = "ILoginSvc";
+    
     public Login create(Login login) throws Exception;
     public Login retrieve(Login login) throws Exception;
     public Login update(Login login) throws Exception;

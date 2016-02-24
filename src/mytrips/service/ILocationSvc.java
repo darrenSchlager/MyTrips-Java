@@ -13,6 +13,8 @@ import mytrips.domain.Location;
  * @author Darren
  */
 public interface ILocationSvc extends IService {
+    public final String NAME = "ILocationSvc";
+    
     public Location create(Location location) throws Exception; 
     public Location retrieveByTripLocationId(Location location) throws Exception;
     public ArrayList<Location> retrieveByTripId(Location location) throws Exception;

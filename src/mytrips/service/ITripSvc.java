@@ -13,6 +13,8 @@ import mytrips.domain.Trip;
  * @author Darren
  */
 public interface ITripSvc extends IService {
+    public final String NAME = "ITripSvc";
+    
     public Trip create(Trip trip) throws Exception;
     public Trip retrieveByTripId(Trip trip) throws Exception;
     public ArrayList<Trip> retrieveByUserId(Trip trip) throws Exception;

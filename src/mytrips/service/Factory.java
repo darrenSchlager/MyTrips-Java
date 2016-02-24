@@ -20,7 +20,7 @@ public class Factory {
     }
     
     private String getImplName(String serviceName) throws Exception {
-        FileInputStream fis = new FileInputStream("FactoryProperties.txt");
+        FileInputStream fis = new FileInputStream("factory.properties");
         Properties props = new Properties();
         props.load(fis);
         return props.getProperty(serviceName);
