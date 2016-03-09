@@ -74,4 +74,9 @@ public class Login {
         this.userId = userId;
     }
     
+    @Override
+    public String toString() {
+        return "   Login :::: "+userId+" "+username+" "+password;
+    }
+    
 }

@@ -128,4 +128,9 @@ public class Activity {
         this.tripLocationId = tripLocationId;
     }
     
+    @Override
+    public String toString() {
+        return "Activity :::::::: "+activityId+" "+activityName+" "+date+" "+time+" "+description+" "+tripLocationId;
+    }
+    
 }

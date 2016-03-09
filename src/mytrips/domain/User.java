@@ -115,4 +115,22 @@ public class User {
         this.trips = trips;
     }
     
+    @Override
+    public String toString() {
+        String str = "    User :: "+userId+" "+firstName+" "+lastName;
+        if(login!=null) {
+            str += "\n"+login.toString();
+        }
+        for(Trip t : trips) {
+            str += "\n"+t.toString();
+            for(Location l : t.getLocations()) {
+                str += "\n"+l.toString();
+                for(Activity a : l.getActivities()) {
+                    str += "\n"+a.toString();
+                }
+            }
+        }
+        return str;
+    }
+    
 }

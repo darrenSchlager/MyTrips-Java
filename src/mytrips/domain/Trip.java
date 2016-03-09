@@ -130,4 +130,9 @@ public class Trip {
         this.locations = locations;
     }
     
+    @Override
+    public String toString() {
+        return  "    Trip :::: "+tripId+" "+tripName+" "+startDate+" "+endDate+" "+userId;
+    }
+    
 }

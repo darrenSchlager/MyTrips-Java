@@ -26,21 +26,9 @@ public class LoginMgrTest {
         Login login = new Login("ds", "bball");
         User user = loginMgr.authenticate(login);
         assertNotNull(user);
-        System.out.println(user.getUserId()+" "+user.getFirstName()+" "+user.getLastName());
         login = user.getLogin();
-        System.out.println(login.getUserId()+" "+login.getUsername()+" "+login.getPassword());
-        ArrayList<Trip> trips = user.getTrips();
-        for(Trip t : trips) {
-            System.out.println(t.getTripId()+" "+t.getTripName()+" "+t.getStartDate()+" "+t.getEndDate()+" "+t.getUserId());
-            ArrayList<Location> locations = t.getLocations();
-            for(Location l : locations) {
-                System.out.println(l.getTripLocationId()+" "+l.getCity()+" "+l.getStateCountry()+" "+l.getArrive()+" "+l.getTripId()+" "+l.getLocationId());
-                ArrayList<Activity> activities = l.getActivities();
-                for(Activity a : activities) {
-                    System.out.println(a.getActivityId()+" "+a.getActivityName()+" "+a.getDate()+" "+a.getTime()+" "+a.getDescription());
-                }
-            }
-        }
+        assertNotNull(login);
+        System.out.println(user.toString());
     }
     
 }

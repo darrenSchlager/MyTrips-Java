@@ -177,4 +177,9 @@ public class Location {
     public void setActivities(ArrayList<Activity> activities) {
         this.activities = activities;
     }
+    
+    @Override
+    public String toString() {
+        return  "Location :::::: "+tripLocationId+" "+arrive+" "+depart+" "+tripId+" "+locationId+" "+city+" "+stateCountry;
+    }
 }
