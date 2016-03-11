@@ -24,7 +24,7 @@ public class JdbcPStatementTest {
     public void testStatementServices() throws Exception {
         IUserSvc userImpl = new UserSvcPStatementImpl();
         ILoginSvc loginImpl = new LoginSvcPStatementImpl();
-        /*todo*/TripSvcStatementImpl tripImpl = new TripSvcStatementImpl();
+        ITripSvc tripImpl = new TripSvcPStatementImpl();
         /*todo*/LocationSvcStatementImpl locationImpl = new LocationSvcStatementImpl();
         /*todo*/ActivitySvcStatementImpl activityImpl = new ActivitySvcStatementImpl();
         
