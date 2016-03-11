@@ -25,7 +25,7 @@ public class JdbcPStatementTest {
         IUserSvc userImpl = new UserSvcPStatementImpl();
         ILoginSvc loginImpl = new LoginSvcPStatementImpl();
         ITripSvc tripImpl = new TripSvcPStatementImpl();
-        /*todo*/LocationSvcStatementImpl locationImpl = new LocationSvcStatementImpl();
+        ILocationSvc locationImpl = new LocationSvcPStatementImpl();
         /*todo*/ActivitySvcStatementImpl activityImpl = new ActivitySvcStatementImpl();
         
         //create User
