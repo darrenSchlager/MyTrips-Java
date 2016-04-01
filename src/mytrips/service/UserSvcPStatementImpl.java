@@ -51,8 +51,8 @@ public class UserSvcPStatementImpl extends ServiceAbs implements IUserSvc {
             ResultSet rs = pstatement.executeQuery();
             if(rs.first()) {
                 user = new User(rs.getInt("user_id"), rs.getString("first_name"), rs.getString("last_name"));
-                user.setLogin(new LoginSvcStatementImpl().retrieve(new Login(user.getUserId())));
-                user.setTrips(new TripSvcStatementImpl().retrieveByUserId(new Trip(-1, user.getUserId())));
+                user.setLogin(new LoginSvcPStatementImpl().retrieve(new Login(user.getUserId())));
+                user.setTrips(new TripSvcPStatementImpl().retrieveByUserId(new Trip(-1, user.getUserId())));
             }
             else {
                 user = null;
@@ -91,8 +91,8 @@ public class UserSvcPStatementImpl extends ServiceAbs implements IUserSvc {
     public User delete(User user) throws Exception {
         try {
             Connection connection = getConnection();
-            new TripSvcStatementImpl().deleteByUserId(new Trip(-1, user.getUserId()));
-            new LoginSvcStatementImpl().delete(new Login(user.getUserId()));
+            new TripSvcPStatementImpl().deleteByUserId(new Trip(-1, user.getUserId()));
+            new LoginSvcPStatementImpl().delete(new Login(user.getUserId()));
             String sql = "DELETE FROM user WHERE user_id=?;";
             PreparedStatement pstatement = connection.prepareStatement(sql);
             pstatement.setInt(1, user.getUserId());

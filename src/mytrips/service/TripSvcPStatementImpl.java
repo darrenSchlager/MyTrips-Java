@@ -56,7 +56,7 @@ public class TripSvcPStatementImpl extends ServiceAbs implements ITripSvc {
             ResultSet rs = pstatement.executeQuery();
             if(rs.first()) {
                 trip = new Trip(rs.getInt("trip_id"), rs.getString("trip_name"), rs.getString("start_date"), rs.getString("end_date"), rs.getInt("user_id"));
-                trip.setLocations(new LocationSvcStatementImpl().retrieveByTripId(new Location(-1, trip.getTripId())));
+                trip.setLocations(new LocationSvcPStatementImpl().retrieveByTripId(new Location(-1, trip.getTripId())));
             }
             else {
                 trip = null;
@@ -83,7 +83,7 @@ public class TripSvcPStatementImpl extends ServiceAbs implements ITripSvc {
             ResultSet rs = pstatement.executeQuery();
             while(rs.next()) {
                 Trip t = new Trip(rs.getInt("trip_id"), rs.getString("trip_name"), rs.getString("start_date"), rs.getString("end_date"), rs.getInt("user_id"));
-                t.setLocations(new LocationSvcStatementImpl().retrieveByTripId(new Location(-1, t.getTripId())));
+                t.setLocations(new LocationSvcPStatementImpl().retrieveByTripId(new Location(-1, t.getTripId())));
                 trips.add(t);
             }
             pstatement.close();
@@ -121,7 +121,7 @@ public class TripSvcPStatementImpl extends ServiceAbs implements ITripSvc {
     public Trip deleteByTripId(Trip trip) throws Exception {
         try {
             Connection connection = getConnection();
-            new LocationSvcStatementImpl().deleteByTripId(new Location(-1, trip.getTripId()));
+            new LocationSvcPStatementImpl().deleteByTripId(new Location(-1, trip.getTripId()));
             String sql = "DELETE FROM trip where trip_id=?;";
             PreparedStatement pstatement = connection.prepareStatement(sql);
             pstatement.setInt(1, trip.getTripId());
@@ -143,7 +143,7 @@ public class TripSvcPStatementImpl extends ServiceAbs implements ITripSvc {
             Connection connection = getConnection();
             trips = retrieveByUserId(trip);
             for(Trip t : trips) {
-                new LocationSvcStatementImpl().deleteByTripId(new Location(-1, t.getTripId()));
+                new LocationSvcPStatementImpl().deleteByTripId(new Location(-1, t.getTripId()));
             }
             String sql = "DELETE FROM trip where user_id=?;";
             PreparedStatement pstatement = connection.prepareStatement(sql);

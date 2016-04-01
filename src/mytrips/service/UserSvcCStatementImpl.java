@@ -51,8 +51,8 @@ public class UserSvcCStatementImpl extends ServiceAbs implements IUserSvc {
             ResultSet rs = cstatement.executeQuery();
             if(rs.first()) {
                 user = new User(rs.getInt("user_id"), rs.getString("first_name"), rs.getString("last_name"));
-                user.setLogin(new LoginSvcStatementImpl().retrieve(new Login(user.getUserId())));
-                user.setTrips(new TripSvcStatementImpl().retrieveByUserId(new Trip(-1, user.getUserId())));
+                user.setLogin(new LoginSvcCStatementImpl().retrieve(new Login(user.getUserId())));
+                user.setTrips(new TripSvcCStatementImpl().retrieveByUserId(new Trip(-1, user.getUserId())));
             }
             else {
                 user = null;
@@ -90,8 +90,8 @@ public class UserSvcCStatementImpl extends ServiceAbs implements IUserSvc {
     public User delete(User user) throws Exception {
         try {
             Connection connection = getConnection();
-            new TripSvcStatementImpl().deleteByUserId(new Trip(-1, user.getUserId()));
-            new LoginSvcStatementImpl().delete(new Login(user.getUserId()));
+            new TripSvcCStatementImpl().deleteByUserId(new Trip(-1, user.getUserId()));
+            new LoginSvcCStatementImpl().delete(new Login(user.getUserId()));
             CallableStatement cstatement = connection.prepareCall("{CALL delete_user(?)}");
             cstatement.setInt(1, user.getUserId());
             cstatement.executeUpdate();

@@ -20,7 +20,7 @@ public class LocationSvcCStatementImpl extends ServiceAbs implements ILocationSv
     @Override
     public Location create(Location location) throws Exception {
         try {
-            if(new TripSvcStatementImpl().retrieveByTripId(new Trip(location.getTripId() ,-1)) != null) {
+            if(new TripSvcCStatementImpl().retrieveByTripId(new Trip(location.getTripId() ,-1)) != null) {
                 Connection connection = getConnection();
                 CallableStatement cstatement;
                 
@@ -94,7 +94,7 @@ public class LocationSvcCStatementImpl extends ServiceAbs implements ILocationSv
                 if(rs2.first()) {
                     location.setCity(rs2.getString("city"));
                     location.setStateCountry(rs2.getString("state_country"));
-                    location.setActivities(new ActivitySvcStatementImpl().retrieveByTripLocationId(new Activity(-1, location.getTripLocationId())));
+                    location.setActivities(new ActivitySvcCStatementImpl().retrieveByTripLocationId(new Activity(-1, location.getTripLocationId())));
                 }
                 /**/
             }
@@ -135,7 +135,7 @@ public class LocationSvcCStatementImpl extends ServiceAbs implements ILocationSv
                 if(rs.first()) {
                     l.setCity(rs.getString("city"));
                     l.setStateCountry(rs.getString("state_country"));
-                    l.setActivities(new ActivitySvcStatementImpl().retrieveByTripLocationId(new Activity(-1, l.getTripLocationId())));
+                    l.setActivities(new ActivitySvcCStatementImpl().retrieveByTripLocationId(new Activity(-1, l.getTripLocationId())));
                 }
                 /**/
             }
@@ -213,7 +213,7 @@ public class LocationSvcCStatementImpl extends ServiceAbs implements ILocationSv
             Connection connection = getConnection();
             CallableStatement cstatement;
             
-            new ActivitySvcStatementImpl().deleteByTripLocationId(new Activity(-1, location.getTripLocationId()));
+            new ActivitySvcCStatementImpl().deleteByTripLocationId(new Activity(-1, location.getTripLocationId()));
             
             /* delete from the mapping table */
             cstatement = connection.prepareCall("{CALL delete_triplocation_by_triplocationid(?)}");
@@ -251,7 +251,7 @@ public class LocationSvcCStatementImpl extends ServiceAbs implements ILocationSv
             CallableStatement cstatement;
             locations = retrieveByTripId(location);
             for(Location l : locations) {
-                new ActivitySvcStatementImpl().deleteByTripLocationId(new Activity(-1, l.getTripLocationId()));
+                new ActivitySvcCStatementImpl().deleteByTripLocationId(new Activity(-1, l.getTripLocationId()));
             }
             
             /* delete from the mapping table */

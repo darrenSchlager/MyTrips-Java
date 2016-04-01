@@ -121,7 +121,7 @@ public class ActivitySvcStatementImpl extends ServiceAbs implements IActivitySvc
     
     @Override
     public ArrayList<Activity> deleteByTripLocationId(Activity activity) throws Exception {
-        ArrayList<Activity> activities;
+        ArrayList<Activity> activities = new ArrayList();
         try {
             Connection connection = getConnection();
             Statement statement = connection.createStatement();

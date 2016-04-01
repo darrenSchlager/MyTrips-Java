@@ -133,7 +133,7 @@ public class ActivitySvcPStatementImpl extends ServiceAbs implements IActivitySv
     
     @Override
     public ArrayList<Activity> deleteByTripLocationId(Activity activity) throws Exception {
-        ArrayList<Activity> activities;
+        ArrayList<Activity> activities = new ArrayList();
         try {
             Connection connection = getConnection();
             activities = retrieveByTripLocationId(activity);

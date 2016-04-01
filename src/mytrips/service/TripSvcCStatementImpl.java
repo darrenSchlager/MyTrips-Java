@@ -54,7 +54,7 @@ public class TripSvcCStatementImpl extends ServiceAbs implements ITripSvc {
             ResultSet rs = cstatement.executeQuery();
             if(rs.first()) {
                 trip = new Trip(rs.getInt("trip_id"), rs.getString("trip_name"), rs.getString("start_date"), rs.getString("end_date"), rs.getInt("user_id"));
-                trip.setLocations(new LocationSvcStatementImpl().retrieveByTripId(new Location(-1, trip.getTripId())));
+                trip.setLocations(new LocationSvcCStatementImpl().retrieveByTripId(new Location(-1, trip.getTripId())));
             }
             else {
                 trip = null;
@@ -79,7 +79,7 @@ public class TripSvcCStatementImpl extends ServiceAbs implements ITripSvc {
             ResultSet rs = cstatement.executeQuery();
             while(rs.next()) {
                 Trip t = new Trip(rs.getInt("trip_id"), rs.getString("trip_name"), rs.getString("start_date"), rs.getString("end_date"), rs.getInt("user_id"));
-                t.setLocations(new LocationSvcStatementImpl().retrieveByTripId(new Location(-1, t.getTripId())));
+                t.setLocations(new LocationSvcCStatementImpl().retrieveByTripId(new Location(-1, t.getTripId())));
                 trips.add(t);
             }
             cstatement.close();
@@ -116,6 +116,7 @@ public class TripSvcCStatementImpl extends ServiceAbs implements ITripSvc {
     public Trip deleteByTripId(Trip trip) throws Exception {
         try {
             Connection connection = getConnection();
+            new LocationSvcCStatementImpl().deleteByTripId(new Location(-1, trip.getTripId()));
             CallableStatement cstatement = connection.prepareCall("{CALL delete_trip_by_tripid(?)}");
             cstatement.setInt(1, trip.getTripId());
             cstatement.executeUpdate();
@@ -136,7 +137,7 @@ public class TripSvcCStatementImpl extends ServiceAbs implements ITripSvc {
             Connection connection = getConnection();
             trips = retrieveByUserId(trip);
             for(Trip t : trips) {
-                new LocationSvcStatementImpl().deleteByTripId(new Location(-1, t.getTripId()));
+                new LocationSvcCStatementImpl().deleteByTripId(new Location(-1, t.getTripId()));
             }
             CallableStatement cstatement = connection.prepareCall("{CALL delete_trip_by_userid(?)}");
             cstatement.setInt(1, trip.getUserId());
