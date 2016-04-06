@@ -31,6 +31,10 @@ public class Login {
         this.username = "";
         this.password = "";
     }
+    
+    public boolean isNotEmpty() {
+        return username!=null && !username.equals("") && password!=null && !password.equals("") ;
+    }
 
     /**
      * @return the username
