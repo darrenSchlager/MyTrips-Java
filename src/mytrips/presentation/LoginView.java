@@ -21,6 +21,7 @@ public class LoginView extends javax.swing.JFrame {
      */
     public LoginView() {
         initComponents();
+        setLocationRelativeTo(null);  //used to center the window
     }
 
     /**
@@ -127,8 +128,9 @@ public class LoginView extends javax.swing.JFrame {
             try {
                 User user = loginMgr.authenticate(login);
                 if(user!=null) {
-                    JOptionPane.showMessageDialog(this, user.toString());
-                    //todo dismiss LoginView, show MainView
+                    //JOptionPane.showMessageDialog(this, user.toString());
+                    setVisible(false);
+                    new MainView().setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(this, "That Username Password can not be found", "Login Warning", JOptionPane.WARNING_MESSAGE);
                 }

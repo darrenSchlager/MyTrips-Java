@@ -13,6 +13,10 @@ import mytrips.service.*;
  */
 public abstract class ManagerAbs {
     
-    protected Factory factory = new Factory();
+    private Factory factory = new Factory();
+    
+    protected IService getService(String name) throws Exception {
+        return factory.getService(name);
+    }
     
 }

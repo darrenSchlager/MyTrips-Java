@@ -35,6 +35,24 @@ public class Login {
     public boolean isNotEmpty() {
         return username!=null && !username.equals("") && password!=null && !password.equals("") ;
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if(this==obj) {
+            return true;
+        }
+        if(obj.getClass()!=Login.class) {
+            return false;
+        }
+       /* this also works
+        if(!(obj instanceof Login)) {
+            return false;
+        }
+        */
+        Login l = (Login) obj;
+        return username.equals(l.username) && password.equals(l.password);
+
+    }
 
     /**
      * @return the username

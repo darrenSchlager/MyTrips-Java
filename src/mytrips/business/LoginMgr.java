@@ -16,13 +16,14 @@ public class LoginMgr extends ManagerAbs{
     
     public User authenticate(Login login) throws Exception {
         User user = null;
-        ILoginSvc loginSvc = (ILoginSvc)factory.getService(ILoginSvc.NAME);
+        ILoginSvc loginSvc = (ILoginSvc)getService(ILoginSvc.NAME);
         Login dbLogin = loginSvc.retrieve(login);
         if(dbLogin != null)
         {
-            IUserSvc userSvc = (IUserSvc)factory.getService(IUserSvc.NAME);
-            user = new User(dbLogin.getUserId());
-            user = userSvc.retrieve(user);
+            if(dbLogin.equals(login)) {
+                IUserSvc userSvc = (IUserSvc)getService(IUserSvc.NAME);
+                user = userSvc.retrieve(new User(dbLogin.getUserId()));
+            }
         }
         return user;
     }
