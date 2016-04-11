@@ -135,4 +135,8 @@ public class Trip {
         return  "    Trip :::: "+tripId+" "+tripName+" "+startDate+" "+endDate+" "+userId;
     }
     
+    public boolean isNotEmpty() {
+        return tripName!=null && !tripName.equals("") && startDate!=null && !startDate.equals("") && endDate!=null && !endDate.equals("");
+    }
+    
 }

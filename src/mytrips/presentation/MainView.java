@@ -5,6 +5,10 @@
  */
 package mytrips.presentation;
 
+import javax.swing.JOptionPane;
+import mytrips.business.TripMgr;
+import mytrips.domain.Trip;
+
 /**
  *
  * @author Darren
@@ -28,31 +32,186 @@ public class MainView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        hello = new javax.swing.JLabel();
+        tabbedPane = new javax.swing.JTabbedPane();
+        createPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        createTripNameFld = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        createStartDateFld = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        createEndDateFld = new javax.swing.JTextField();
+        createSubmitBtn = new javax.swing.JButton();
+        createClearBtn = new javax.swing.JButton();
+        listPanel = new javax.swing.JPanel();
+        updatePanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        hello.setText("Hello");
+        jLabel1.setText("Trip Name");
+
+        jLabel2.setText("Start Date (MM-DD-YYYY)");
+
+        createStartDateFld.setToolTipText("");
+        createStartDateFld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createStartDateFldActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("End Date (MM-DD-YYYY)");
+
+        createEndDateFld.setToolTipText("");
+        createEndDateFld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createEndDateFldActionPerformed(evt);
+            }
+        });
+
+        createSubmitBtn.setText("Submit");
+        createSubmitBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createSubmitBtnActionPerformed(evt);
+            }
+        });
+
+        createClearBtn.setText("Clear");
+        createClearBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createClearBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout createPanelLayout = new javax.swing.GroupLayout(createPanel);
+        createPanel.setLayout(createPanelLayout);
+        createPanelLayout.setHorizontalGroup(
+            createPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(createPanelLayout.createSequentialGroup()
+                .addGap(0, 71, Short.MAX_VALUE)
+                .addGroup(createPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(createPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(createTripNameFld))
+                    .addGroup(createPanelLayout.createSequentialGroup()
+                        .addGroup(createPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(createPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(createStartDateFld)
+                            .addComponent(createEndDateFld, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(68, 68, 68))
+            .addGroup(createPanelLayout.createSequentialGroup()
+                .addGap(124, 124, 124)
+                .addComponent(createSubmitBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(createClearBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        createPanelLayout.setVerticalGroup(
+            createPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(createPanelLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(createPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(createTripNameFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(createPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(createStartDateFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(createPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(createEndDateFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(createPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(createSubmitBtn)
+                    .addComponent(createClearBtn))
+                .addContainerGap(54, Short.MAX_VALUE))
+        );
+
+        tabbedPane.addTab("Create", createPanel);
+
+        javax.swing.GroupLayout listPanelLayout = new javax.swing.GroupLayout(listPanel);
+        listPanel.setLayout(listPanelLayout);
+        listPanelLayout.setHorizontalGroup(
+            listPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 422, Short.MAX_VALUE)
+        );
+        listPanelLayout.setVerticalGroup(
+            listPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 254, Short.MAX_VALUE)
+        );
+
+        tabbedPane.addTab("List", listPanel);
+
+        javax.swing.GroupLayout updatePanelLayout = new javax.swing.GroupLayout(updatePanel);
+        updatePanel.setLayout(updatePanelLayout);
+        updatePanelLayout.setHorizontalGroup(
+            updatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 422, Short.MAX_VALUE)
+        );
+        updatePanelLayout.setVerticalGroup(
+            updatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 254, Short.MAX_VALUE)
+        );
+
+        tabbedPane.addTab("Update", updatePanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(hello)
-                .addContainerGap(322, Short.MAX_VALUE))
+            .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(hello)
-                .addContainerGap(248, Short.MAX_VALUE))
+            .addComponent(tabbedPane)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void createStartDateFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createStartDateFldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_createStartDateFldActionPerformed
+
+    private void createSubmitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createSubmitBtnActionPerformed
+        TripMgr tripMgr = new TripMgr();
+        Trip trip = new Trip(createTripNameFld.getText(), createStartDateFld.getText(), createEndDateFld.getText(), 1);
+        if(trip.isNotEmpty()) {
+            if(trip.getStartDate().matches("^\\d{1,2}-\\d{1,2}-\\d{4}$")) {
+                if(trip.getEndDate().matches("^\\d{1,2}-\\d{1,2}-\\d{4}$")) {
+                    try {
+                        tripMgr.create(trip);
+                        createTripNameFld.setText("");
+                        createStartDateFld.setText("");
+                        createEndDateFld.setText("");
+                        JOptionPane.showMessageDialog(this, "Created Trip: "+trip.getTripName(), "Create Trip", JOptionPane.INFORMATION_MESSAGE);
+        } catch(Exception e) {
+            ///todo
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+                } else {
+                    JOptionPane.showMessageDialog(this, "The End Date must be in the format MM-DD-YYYY.", "Invalid Start Date", JOptionPane.WARNING_MESSAGE);
+                }
+        } else {
+            JOptionPane.showMessageDialog(this, "The Start Date must be in the format MM-DD-YYYY.", "Invalid End Date", JOptionPane.WARNING_MESSAGE);
+        } 
+        } else {
+            JOptionPane.showMessageDialog(this, "Please provide a Trip Name, Start Date, and End Date", "Trip Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_createSubmitBtnActionPerformed
+
+    private void createClearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createClearBtnActionPerformed
+        createTripNameFld.setText("");
+        createStartDateFld.setText("");
+        createEndDateFld.setText("");
+    }//GEN-LAST:event_createClearBtnActionPerformed
+
+    private void createEndDateFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createEndDateFldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_createEndDateFldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -90,6 +249,17 @@ public class MainView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel hello;
+    private javax.swing.JButton createClearBtn;
+    private javax.swing.JTextField createEndDateFld;
+    private javax.swing.JPanel createPanel;
+    private javax.swing.JTextField createStartDateFld;
+    private javax.swing.JButton createSubmitBtn;
+    private javax.swing.JTextField createTripNameFld;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel listPanel;
+    private javax.swing.JTabbedPane tabbedPane;
+    private javax.swing.JPanel updatePanel;
     // End of variables declaration//GEN-END:variables
 }
