@@ -8,6 +8,7 @@ package mytrips.presentation;
 import javax.swing.JOptionPane;
 import mytrips.business.TripMgr;
 import mytrips.domain.Trip;
+import mytrips.domain.User;
 
 /**
  *
@@ -15,12 +16,21 @@ import mytrips.domain.Trip;
  */
 public class MainView extends javax.swing.JFrame {
 
+    private User user;
+    
     /**
      * Creates new form MainView
      */
     public MainView() {
         initComponents();
         setLocationRelativeTo(null);  //used to center the window
+    }
+    
+        public MainView(User user) {
+        initComponents();
+        setLocationRelativeTo(null);  //used to center the window
+        
+        this.user = user;
     }
 
     /**
@@ -178,7 +188,7 @@ public class MainView extends javax.swing.JFrame {
 
     private void createSubmitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createSubmitBtnActionPerformed
         TripMgr tripMgr = new TripMgr();
-        Trip trip = new Trip(createTripNameFld.getText(), createStartDateFld.getText(), createEndDateFld.getText(), 1);
+        Trip trip = new Trip(createTripNameFld.getText(), createStartDateFld.getText(), createEndDateFld.getText(), user.getUserId());
         if(trip.isNotEmpty()) {
             if(trip.getStartDate().matches("^\\d{1,2}-\\d{1,2}-\\d{4}$")) {
                 if(trip.getEndDate().matches("^\\d{1,2}-\\d{1,2}-\\d{4}$")) {

@@ -130,7 +130,7 @@ public class LoginView extends javax.swing.JFrame {
                 if(user!=null) {
                     //JOptionPane.showMessageDialog(this, user.toString());
                     setVisible(false);
-                    new MainView().setVisible(true);
+                    new MainView(user).setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(this, "That Username Password can not be found", "Login Warning", JOptionPane.WARNING_MESSAGE);
                 }
