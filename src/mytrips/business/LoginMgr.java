@@ -28,4 +28,10 @@ public class LoginMgr extends ManagerAbs{
         return user;
     }
     
+    public Login create(Login login) throws Exception {
+        ILoginSvc loginSvc = (ILoginSvc)getService(ILoginSvc.NAME);
+        Login loginDb = loginSvc.create(login);
+        return loginDb;
+    }
+    
 }

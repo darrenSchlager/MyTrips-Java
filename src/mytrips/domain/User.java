@@ -44,6 +44,10 @@ public class User {
         trips = new ArrayList();
         login = null;
     }
+    
+    public boolean isNotEmpty() {
+        return firstName!=null && !firstName.equals("") && lastName!=null && !lastName.equals("") ;
+    }
 
     /**
      * @return the firstName

@@ -39,6 +39,8 @@ public class LoginView extends javax.swing.JFrame {
         pswdField = new javax.swing.JPasswordField();
         submitButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
+        createUserButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,32 +74,53 @@ public class LoginView extends javax.swing.JFrame {
             }
         });
 
+        createUserButton.setText("Create User");
+        createUserButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createUserButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mytrips/resources/globe.png"))); // NOI18N
+        jLabel1.setText("MyTrips");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(88, 88, 88)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(userLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(userField))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(submitButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(cancelButton)
-                        .addGap(9, 9, 9))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(pswdLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pswdField, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)))
-                .addContainerGap(144, Short.MAX_VALUE))
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(submitButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(cancelButton))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(53, 53, 53)
+                                .addComponent(createUserButton))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(userLabel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(userField))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(pswdLabel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(pswdField, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(73, 73, 73)
+                .addGap(48, 48, 48)
+                .addComponent(jLabel1)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userLabel)
                     .addComponent(userField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -109,7 +132,9 @@ public class LoginView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(submitButton)
                     .addComponent(cancelButton))
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addComponent(createUserButton)
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
@@ -137,7 +162,7 @@ public class LoginView extends javax.swing.JFrame {
             }
             catch(Exception e) {
                 ///todo
-                JOptionPane.showMessageDialog(this, e.getMessage());
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Login Warning", JOptionPane.WARNING_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Please provide a Username and a Password", "Login Error", JOptionPane.ERROR_MESSAGE);
@@ -151,6 +176,11 @@ public class LoginView extends javax.swing.JFrame {
     private void pswdFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pswdFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pswdFieldActionPerformed
+
+    private void createUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserButtonActionPerformed
+        setVisible(false);
+        new UserView().setVisible(true);
+    }//GEN-LAST:event_createUserButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,6 +219,8 @@ public class LoginView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
+    private javax.swing.JButton createUserButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPasswordField pswdField;
     private javax.swing.JLabel pswdLabel;
     private javax.swing.JButton submitButton;
