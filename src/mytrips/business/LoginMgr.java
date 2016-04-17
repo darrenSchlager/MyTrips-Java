@@ -34,4 +34,9 @@ public class LoginMgr extends ManagerAbs{
         return loginDb;
     }
     
+    public boolean usernameExists(Login login) throws Exception {
+        ILoginSvc loginSvc = (ILoginSvc)getService(ILoginSvc.NAME);
+        return loginSvc.containsUsername(login);
+    }
+    
 }

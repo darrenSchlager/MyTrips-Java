@@ -151,40 +151,39 @@ public class UserView extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-
-        User user = new User(firstNameField.getText(), lastNameField.getText());
-        if(user.isNotEmpty()) {
-            UserMgr userMgr = new UserMgr();
+        Login login = new Login(usernameField.getText(), new String(passwordField.getPassword()));
+        if(login.isNotEmpty()) {
+            LoginMgr loginMgr = new LoginMgr();
             try {
-                user = userMgr.create(user);
-            } catch(Exception e) {
-                JOptionPane.showMessageDialog(this, e.getMessage(), "Login Warning", JOptionPane.WARNING_MESSAGE);
-            }
-            Login login = new Login(user.getUserId(), usernameField.getText(), new String(passwordField.getPassword()));
-            if(login.isNotEmpty()) {
-                LoginMgr loginMgr = new LoginMgr();
-                try {
-                    login = loginMgr.create(login);
-                    user = userMgr.retrieve(user);
-                    JOptionPane.showMessageDialog(this, "Created User: "+user.getLogin().getUsername(), "Create User", JOptionPane.INFORMATION_MESSAGE);
-                    setVisible(false);
-                    new LoginView().setVisible(true);
-                } catch(Exception e) {
-                    try {
-                        userMgr.delete(user);
-                    } catch(Exception e2) {
-                        JOptionPane.showMessageDialog(this, e2.getMessage(), "Login Warning", JOptionPane.WARNING_MESSAGE);
+                if(!loginMgr.usernameExists(login)) {
+                    User user = new User(firstNameField.getText(), lastNameField.getText());
+                    if(user.isNotEmpty()) {
+                        UserMgr userMgr = new UserMgr();
+                        try {
+                            user = userMgr.create(user);
+                            login.setUserId(user.getUserId());
+                            login = loginMgr.create(login);
+                            user = userMgr.retrieve(user);
+                            JOptionPane.showMessageDialog(this, "Created User: "+user.getLogin().getUsername(), "Create User", JOptionPane.INFORMATION_MESSAGE);
+                            setVisible(false);
+                            new LoginView().setVisible(true);
+                        } catch(Exception e) {
+                            JOptionPane.showMessageDialog(this, e.getMessage(), "Login Warning", JOptionPane.WARNING_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Please provide your First Name and Last Name", "User Error", JOptionPane.ERROR_MESSAGE);
                     }
-                    JOptionPane.showMessageDialog(this, e.getMessage(), "Login Warning", JOptionPane.WARNING_MESSAGE);
                 }
-            } 
-            else {
-                JOptionPane.showMessageDialog(this, "Please provide a Username and Password", "User Error", JOptionPane.ERROR_MESSAGE);
+                else {
+                    JOptionPane.showMessageDialog(this, "The username '"+login.getUsername()+"' is taken", "Login Warning", JOptionPane.WARNING_MESSAGE);
+                }
+            } catch(Exception e) {
+                   
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Please provide your First Name and Last Name", "User Error", JOptionPane.ERROR_MESSAGE);
         }
-        
+        else {
+            JOptionPane.showMessageDialog(this, "Please provide a Username and Password", "User Error", JOptionPane.ERROR_MESSAGE);
+        }
         
     }//GEN-LAST:event_submitButtonActionPerformed
 

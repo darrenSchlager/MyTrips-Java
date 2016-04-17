@@ -17,4 +17,5 @@ public interface ILoginSvc extends IService {
     public Login retrieve(Login login) throws Exception;
     public Login update(Login login) throws Exception;
     public Login delete(Login login) throws Exception;
+    public boolean containsUsername(Login login) throws Exception;
 }

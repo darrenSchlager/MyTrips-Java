@@ -93,4 +93,25 @@ public class LoginSvcStatementImpl extends ServiceAbs implements ILoginSvc {
         return login;
     }
     
+    @Override
+    public boolean containsUsername(Login login) throws Exception {
+        boolean containsUsername = false;
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM login WHERE username='"+login.getUsername()+"';";
+            ResultSet rs = statement.executeQuery(sql);
+            if(rs.first()) {
+                containsUsername = true;
+            }
+            statement.close();
+            connection.close();
+        } catch(Exception e) {
+            System.out.println("EXCEPTION: " + e.getMessage());
+            throw e;
+        }
+        
+        return containsUsername;
+    }
+    
 }
