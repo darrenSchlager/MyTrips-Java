@@ -5,6 +5,10 @@
  */
 package mytrips.business;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
 import mytrips.domain.*;
 import mytrips.service.*;
 
@@ -28,9 +32,28 @@ public class LoginMgr extends ManagerAbs{
         return user;
     }
     
+    public boolean socketAuthenticate(String credentials) throws Exception {
+        boolean isAuthenticated = false;
+        Socket socket = new Socket(InetAddress.getLocalHost(), 8000);
+        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+        oos.writeObject(credentials);
+        isAuthenticated = (boolean)ois.readObject();
+        oos.close();
+        ois.close();
+        socket.close();
+        return isAuthenticated;
+    }
+    
     public Login create(Login login) throws Exception {
         ILoginSvc loginSvc = (ILoginSvc)getService(ILoginSvc.NAME);
         Login loginDb = loginSvc.create(login);
+        return loginDb;
+    }
+    
+    public Login retrieve(Login login) throws Exception {
+        ILoginSvc loginSvc = (ILoginSvc)getService(ILoginSvc.NAME);
+        Login loginDb = loginSvc.retrieve(login);
         return loginDb;
     }
     

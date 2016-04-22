@@ -7,6 +7,7 @@ package mytrips.presentation;
 
 import javax.swing.JOptionPane;
 import mytrips.business.LoginMgr;
+import mytrips.business.UserMgr;
 import mytrips.domain.Login;
 import mytrips.domain.User;
 
@@ -147,6 +148,7 @@ public class LoginView extends javax.swing.JFrame {
         if(login.isNotEmpty()) {
             LoginMgr loginMgr = new LoginMgr();
             try {
+                /* local db authentication */
                 User user = loginMgr.authenticate(login);
                 if(user!=null) {
                     //JOptionPane.showMessageDialog(this, user.toString());
@@ -155,6 +157,25 @@ public class LoginView extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(this, "That Username Password can not be found", "Login Warning", JOptionPane.WARNING_MESSAGE);
                 }
+                /**/
+                
+//                /* socket authentication */
+//                boolean isAuthenticated = loginMgr.socketAuthenticate(login.getUsername()+"/"+login.getPassword());
+//                if(isAuthenticated) {
+//                    login = loginMgr.retrieve(login);
+//                    UserMgr userMgr = new UserMgr();
+//                    User user = userMgr.retrieve(new User(login.getUserId()));
+//                    if(user!=null) {
+//                        //JOptionPane.showMessageDialog(this, user.toString());
+//                        setVisible(false);
+//                        new MainView(user).setVisible(true);
+//                    } else {
+//                        JOptionPane.showMessageDialog(this, "A user with that login could not be found", "Login Warning", JOptionPane.WARNING_MESSAGE);
+//                    }
+//                } else {
+//                    JOptionPane.showMessageDialog(this, "That Username Password can not be found on the server", "Login Warning", JOptionPane.WARNING_MESSAGE);
+//                }
+//                /**/
             }
             catch(Exception e) {
                 ///todo
